@@ -1,0 +1,13 @@
+div{
+    border-radius: 5%;
+    border: 5px solid palegoldenrod;
+}
+
+#dropdown-content{
+    display: none; 
+    
+}
+
+#dropdown-content.visible {
+    display: block;
+}
