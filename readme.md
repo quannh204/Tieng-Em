@@ -8,8 +8,13 @@ cài NVM ở [đây](https://github.com/coreybutler/nvm-windows). Nhớ chọn �
 ### Installation
 1. **Install NPM**  
    ```bash
-   nvm install 11.2.0
-   nvm use 11.2.0
+   nvm install 23.10.0
+   ```
+   ```bash
+   nvm use 23.10.0
+   ```
+   ```bash
+   npm install -g npm
    ```
 2. **Clone repo**  
    ```bash
