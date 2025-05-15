@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+            background-color: #343a40;
+            height: 100vh;
+            color: white;
+            padding-top: 20px;
+        }
+
+        .sidebar .nav-link {
+            color: #fff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: #495057;
+            border-radius: 4px;
+        }
+
+        .sidebar .nav-link.active {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .topbar {
+            background-color: #ffffff;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .document-bar {
+            background-color: #fff3f3;
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .document-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .timetable-header {
+            padding: 20px;
+        }
+
+        .timetable-content {
+            margin: 0;
+            padding: 20px;
+        }
+
+        .timetable-day {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            min-height: 250px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .timetable-day .date-label {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.85rem;
+            font-weight: normal;
+            color: #6c757d;
+        }
+
+        .timetable-day:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .schedule {
+            background-color: #f8d7da;
+            padding: 20px;
+            height: 150px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .class-time {
+            background-color: #dc3545;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .toggle-doc-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #dc3545;
+            cursor: pointer;
+        }
+
+        @media (max-width: 767px) {
+            .timetable-day {
+                min-height: auto;
+            }
+
+            .document-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar d-flex flex-column align-items-center">
+                <div class="mb-4"><strong>LOGO</strong></div>
+                <nav class="nav flex-column w-100 text-center">
+                    <a class="nav-link active" href="#">Homepage</a>
+                    <a class="nav-link" href="#">Học sinh</a>
+                    <a class="nav-link" href="#">Khóa học</a>
+                    <a class="nav-link" href="#">Thành tích</a>
+                    <a class="nav-link" href="#">Liên lạc</a>
+                    <a class="nav-link" href="#">Bảng xếp hạng</a>
+                </nav>
+            </div>
+
+            <!-- Main content -->
+            <div class="col-md-10">
+
+                <!-- Topbar -->
+                <div class="topbar d-flex align-items-center">
+                    <div class="ml-auto">
+                        <button class="btn btn-danger" title="Thông báo"><i class="fas fa-bell"></i></button>
+                        <button class="btn btn-secondary" title="Avatar"><i class="fas fa-user-circle"></i></button>
+                        <button class="btn btn-dark" title="Hồ sơ"><i class="fas fa-id-badge"></i></button>
+                    </div>
+                </div>
+
+                <!-- Tài liệu ngày học -->
+                <div class="document-bar">
+                    <div class="document-buttons" id="docButtons">
+                        <button class="btn btn-light" onclick="openDocument(1)">Tài liệu hôm nay</button>
+                        <button class="btn btn-light" onclick="openDocument(2)">Tài liệu hôm nay</button>
+                        <button class="btn btn-light" onclick="openDocument(3)">Tài liệu hôm nay</button>
+                        <button class="btn btn-light" onclick="openDocument(4)">Tài liệu hôm nay</button>
+                        <button class="btn btn-light" onclick="openDocument(5)">Tài liệu hôm nay</button>
+                    </div>
+                    <button class="toggle-doc-btn" onclick="toggleDocuments()" title="Ẩn/Hiện tài liệu"><i
+                            id="toggleIcon" class="fas fa-chevron-up"></i></button>
+                </div>
+
+                <!-- Timetable -->
+                <div class="timetable-header d-flex justify-content-between align-items-center">
+                    <h5>Thời khóa biểu</h5>
+                    <div>
+                        <button class="btn btn-outline-secondary btn-sm mr-1">Tuần</button>
+                        <button class="btn btn-outline-secondary btn-sm mr-1">Tháng</button>
+                        <button class="btn btn-outline-secondary btn-sm mr-3">Năm</button>
+                        <button class="btn btn-outline-secondary btn-sm mr-1" onclick="changeWeek(-1)">&lt;</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="changeWeek(1)">&gt;</button>
+                    </div>
+                </div>
+
+                <!-- Timetable grid -->
+                <div class="timetable-content row no-gutters" id="timetable">
+                    <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dayNames = ['Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy', 'Chủ Nhật'];
+        let currentDate = new Date();
+        let isDocVisible = true;
+
+        function getStartOfWeek(date) {
+            const day = date.getDay(); // 0 = Sunday
+            const diff = (day === 0 ? -6 : 1) - day;
+            const monday = new Date(date);
+            monday.setDate(date.getDate() + diff);
+            return monday;
+        }
+
+        function formatDate(date) {
+            const d = date.getDate();
+            const m = date.getMonth() + 1;
+            const y = date.getFullYear();
+            return `${d}/${m}/${y}`;
+        }
+
+        function renderWeek(date) {
+            const timetable = document.getElementById('timetable');
+            timetable.innerHTML = '';
+            let startOfWeek = getStartOfWeek(date);
+
+            for (let i = 0; i < 7; i++) {
+                const dayDate = new Date(startOfWeek);
+                dayDate.setDate(startOfWeek.getDate() + i);
+
+                const col = document.createElement('div');
+                col.className = 'col px-1';
+
+                const dayBox = document.createElement('div');
+                dayBox.className = 'timetable-day';
+                dayBox.innerHTML = `${dayNames[i]}<div class="date-label">${formatDate(dayDate)}</div>`;
+
+                // Ví dụ: Chỉ Thứ Tư và Chủ Nhật có lịch học
+                if (i === 2 || i === 6) {
+                    const schedule = document.createElement('div');
+                    schedule.className = 'schedule mt-2';
+
+                    const classTime = document.createElement('div');
+                    classTime.className = 'class-time';
+                    classTime.textContent = 'Giờ học';
+
+                    schedule.appendChild(classTime);
+                    dayBox.appendChild(schedule);
+                }
+
+                col.appendChild(dayBox);
+                timetable.appendChild(col);
+            }
+        }
+
+        function changeWeek(offset) {
+            currentDate.setDate(currentDate.getDate() + offset * 7);
+            renderWeek(currentDate);
+        }
+
+        function toggleDocuments() {
+            const docButtons = document.getElementById('docButtons');
+            const icon = document.getElementById('toggleIcon');
+            if (isDocVisible) {
+                docButtons.style.display = 'none';
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                docButtons.style.display = 'flex';
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+            isDocVisible = !isDocVisible;
+        }
+
+        window.onload = () => renderWeek(currentDate);
+    </script>
+</body>
+
+</html>
